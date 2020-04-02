@@ -2,38 +2,43 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property integer $id
+ * @property integer $role_id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string $created_at
+ * @property string $updated_at
+ * @property string $deleted_at
+ * @property Role $role
+ */
 class User extends Authenticatable
 {
-    use Notifiable;
+    /**
+     * The "type" of the auto-incrementing ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'integer';
 
     /**
-     * The attributes that are mass assignable.
-     *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $fillable = ['role_id', 'name', 'email', 'password', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+    }
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function isAn($role){
+        return $this->role->role == $role;
+    }
 }
