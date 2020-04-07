@@ -66,27 +66,40 @@ class ParentsController extends Controller
             $ayah = Parents::create([
                 'religion_id' => $request->agama_suami,
                 'name' => $request->nama_suami,
-                'gender' => 2
+                'gender' => 2,
+                'nik' => $request->nik_suami,
+                'job' => $request->pekerjaan_suami,
+                'birth_date' => $request->tanggal_lahir_suami,
+                'birth_place' => $request->tempat_lahir_suami
             ]);
 
             $ibu = Parents::create([
                 'religion_id' => $request->agama_istri,
                 'name' => $request->nama_istri,
-                'gender' => 1
+                'gender' => 1,
+                'nik' => $request->nik_istri,
+                'job' => $request->pekerjaan_istri,
+                'birth_date' => $request->tanggal_lahir_istri,
+                'birth_place' => $request->tempat_lahir_istri
             ]);
 
             $family = Parents::create([
                 'father_id' => $ayah->id,
-                'mother_id' => $ibu->id
+                'mother_id' => $ibu->id,
+                'married_at' => $request->tanggal_menikah,
+                'address' => $request->alamat_pasangan,
+                'no_kk' => $request->no_kk
             ]);
 
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();
-            dd($exception);
+            // dd($exception);
         }
 
-        return $request;
+        toastr()->success("User berhasil ditambahkan");
+
+        return redirect()->route('dashboard.parents.index');
     }
 
     /**
