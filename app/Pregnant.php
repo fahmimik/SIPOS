@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
- * @property Parent $parent
+ * @property Parents $parent
  */
 class Pregnant extends Model
 {
@@ -37,6 +37,6 @@ class Pregnant extends Model
      */
     public function parent()
     {
-        return $this->belongsTo('App\Parent');
+        return $this->belongsTo('App\Parents');
     }
 }

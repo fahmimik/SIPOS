@@ -1,6 +1,6 @@
 <h3>Menu Admin</h3>
 <ul class="nav side-menu">
-    <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-home"></i> Dashboard</a>
+    <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-home"></i> Overview</a>
 {{--    <li><a href="{{ route('catatan-bayi.index') }}"><i class="fa fa-home"></i> Catatan Bayi</a>--}}
 {{--    </li>--}}
 {{--    <li><a><i class="fa fa-edit"></i> Register KMS <span class="fa fa-chevron-down"></span></a>--}}
@@ -13,10 +13,10 @@
 {{--            <li><a href="{{ route('kms-bayi.create') }}">Input KMS</a></li>--}}
 {{--        </ul>--}}
 {{--    </li>--}}
-{{--    <li><a href="{{ route('pasangan.index') }}"><i class="fa fa-home"></i> Daftar Pasangan</a>--}}
 {{--    <li><a href="{{ route('wuspus.index') }}"><i class="fa fa-home"></i> Daftar Wuspus</a>--}}
-{{--    <li><a href="{{ route('anak.index') }}"><i class="fa fa-home"></i> Daftar Anak</a>--}}
-{{--    <li><a href="{{ route('posyandu.index') }}"><i class="fa fa-home"></i> Daftar Posyandu</a>--}}
-{{--    <li><a href="{{ route('desa.index') }}"><i class="fa fa-home"></i> Daftar Desa</a>--}}
+    {{--    <li><a href="{{ route('anak.index') }}"><i class="fa fa-home"></i> Daftar Anak</a>--}}
+    {{--    <li><a href="{{ route('posyandu.index') }}"><i class="fa fa-home"></i> Daftar Posyandu</a>--}}
+    {{--    <li><a href="{{ route('desa.index') }}"><i class="fa fa-home"></i> Daftar Desa</a>--}}
+    <li><a href="{{ route('dashboard.parents.index') }}"><i class="fa fa-home"></i> Daftar Pasangan</a>
     <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-home"></i> Daftar Users</a>
 </ul>

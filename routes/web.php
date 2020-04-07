@@ -30,19 +30,15 @@ Route::group(
     function () {
         Route::get('/', 'DashboardController@index')->name('index');
 
-        Route::group(['middleware' => 'role:admin'], function () {
-            // Route yang bisa diakses admin
-            Route::resource('users', 'UserController');
-        });
+        Route::resource('users', 'UserController')->middleware('role:admin');
 
-        Route::group(['middleware' => 'role:bidan'], function () {
-            // Route yang bisa diakses bidan
-        });
-
-        Route::group(['middleware' => 'role:kader'], function () {
-            // Route yang bisa diakses kader
-        });
-
+        Route::get('parents', 'ParentsController@index')->name('parents.index')->middleware('role:all');
+        Route::post('parents', 'ParentsController@store')->name('parents.store')->middleware('role:admin|bidan');
+        Route::get('parents/create', 'ParentsController@create')->name('parents.create')->middleware('role:admin|bidan');
+        Route::get('parents/{parents}', 'ParentsController@show')->name('parents.show')->middleware('role:all');
+        Route::get('parents/{parents}/edit', 'ParentsController@edit')->name('parents.edit')->middleware('role:admin|bidan');
+        Route::put('parents/{parents}', 'ParentsController@update')->name('parents.update')->middleware('role:admin|bidan');
+        Route::delete('parents/{parents}', 'ParentsController@delete')->name('parents.delete')->middleware('role:admin|bidan');
 
         Route::group(['prefix' => '/ajax/dashboard', 'as' => 'ajax.'], function(){
 

@@ -15,11 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property string $deleted_at
  * @property Religion $religion
- * @property Family[] $families
- * @property Family[] $families
  * @property Pregnant[] $pregnants
  */
-class Parent extends Model
+class Parents extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
@@ -31,7 +29,7 @@ class Parent extends Model
     /**
      * @var array
      */
-    protected $fillable = ['religion_id', 'name', 'gender', 'nik', 'job', 'created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = ['religion_id', 'name', 'gender', 'nik', 'job', 'birth_date', 'birth_place', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -39,22 +37,6 @@ class Parent extends Model
     public function religion()
     {
         return $this->belongsTo('App\Religion');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function families()
-    {
-        return $this->hasMany('App\Family', 'father_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function families()
-    {
-        return $this->hasMany('App\Family', 'mother_id');
     }
 
     /**

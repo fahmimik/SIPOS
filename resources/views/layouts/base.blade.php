@@ -131,7 +131,7 @@
 {{--<script src="{{ asset('vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>--}}
 {{--<script src="{{ asset('vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>--}}
 {{--<!-- bootstrap-daterangepicker -->--}}
-{{--<script src="{{ asset('vendors/moment/min/moment.min.js') }}"></script>--}}
+<script src="{{ asset('vendors/moment/min/moment.min.js') }}"></script>
 {{--<script src="{{ asset('vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>--}}
 
 <!-- Custom Theme Scripts -->

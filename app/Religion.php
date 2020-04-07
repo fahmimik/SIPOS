@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $id
  * @property string $name
  * @property Children[] $childrens
- * @property Parent[] $parents
+ * @property Parents[] $parents
  */
 class Religion extends Model
 {
@@ -37,6 +37,6 @@ class Religion extends Model
      */
     public function parents()
     {
-        return $this->hasMany('App\Parent');
+        return $this->hasMany('App\Parents');
     }
 }

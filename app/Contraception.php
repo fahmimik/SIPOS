@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
- * @property ParentNote[] $parentNotes
+ * @property ParentsNote[] $parentNotes
  */
 class Contraception extends Model
 {
@@ -32,6 +32,6 @@ class Contraception extends Model
      */
     public function parentNotes()
     {
-        return $this->belongsToMany('App\ParentNote', 'parent_note_contraceptions');
+        return $this->belongsToMany('App\ParentsNote', 'parent_note_contraceptions');
     }
 }

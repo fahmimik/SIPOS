@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Family $family
  * @property Contraception[] $contraceptions
  */
-class ParentNote extends Model
+class ParentsNote extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.

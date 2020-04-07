@@ -14,10 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
- * @property Parent $parent
- * @property Parent $parent
  * @property Children[] $childrens
- * @property ParentNote[] $parentNotes
+ * @property ParentsNote[] $parentNotes
  */
 class Family extends Model
 {
@@ -36,17 +34,17 @@ class Family extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function parent()
+    public function father()
     {
-        return $this->belongsTo('App\Parent', 'father_id');
+        return $this->belongsTo('App\Parents', 'father_id');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function parent()
+    public function mother()
     {
-        return $this->belongsTo('App\Parent', 'mother_id');
+        return $this->belongsTo('App\Parents', 'mother_id');
     }
 
     /**
@@ -62,6 +60,6 @@ class Family extends Model
      */
     public function parentNotes()
     {
-        return $this->hasMany('App\ParentNote');
+        return $this->hasMany('App\ParentsNote');
     }
 }

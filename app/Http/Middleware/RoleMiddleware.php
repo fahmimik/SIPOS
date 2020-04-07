@@ -13,9 +13,10 @@ class RoleMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, $roles)
     {
-        if($request->user()->role->role == $role){
+        $roles = explode('|', $roles);
+        if(in_array($request->user()->role->role, $roles) || $roles[0] == 'all'){
             return $next($request);
         }
         return abort(403);
