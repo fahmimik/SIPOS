@@ -37,7 +37,7 @@ Route::group(
         Route::get('family/create', 'FamilyController@create')->name('family.create')->middleware('role:admin|bidan');
         Route::get('family/{family}', 'FamilyController@show')->name('family.show')->middleware('role:all');
         Route::get('family/{family}/edit', 'FamilyController@edit')->name('family.edit')->middleware('role:admin|bidan');
-        Route::put('family/{family}', 'FamilyController@update')->name('family.update')->middleware('role:admin|bidan');
+        Route::post('family/{family}', 'FamilyController@update')->name('family.update')->middleware('role:admin|bidan');
         Route::delete('family/{family}', 'FamilyController@destroy')->name('family.destroy')->middleware('role:admin|bidan');
 
         Route::group(['prefix' => '/ajax/dashboard', 'as' => 'ajax.'], function(){

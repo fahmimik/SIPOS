@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Family;
+use App\Parents;
 use App\Http\Controllers\Controller;
 use App\Religion;
 use Carbon\Carbon;
@@ -62,9 +63,9 @@ class FamilyController extends Controller
         try {
             DB::beginTransaction();
 
-//            return $request->agama_suami;
+           // return $request->agama_suami;
 
-            $ayah = Family::create([
+            $ayah = Parents::create([
                 'religion_id' => $request->agama_suami,
                 'name' => $request->nama_suami,
                 'gender' => 2,
@@ -74,7 +75,7 @@ class FamilyController extends Controller
                 'birth_place' => $request->tempat_lahir_suami
             ]);
 
-            $ibu = Family::create([
+            $ibu = Parents::create([
                 'religion_id' => $request->agama_istri,
                 'name' => $request->nama_istri,
                 'gender' => 1,
@@ -95,12 +96,12 @@ class FamilyController extends Controller
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();
-            dd($exception);
+            // dd($exception);
         }
 
         toastr()->success("User berhasil ditambahkan");
 
-        return redirect()->route('dashboard.parents.index');
+        return redirect()->route('dashboard.family.index');
     }
 
     /**
@@ -197,6 +198,8 @@ class FamilyController extends Controller
      */
     public function destroy(Family $family)
     {
-        
+      $family->delete();
+      toastr()->success("Data berhasil dihapus");
+      return redirect()->route('dashboard.family.index');
     }
 }

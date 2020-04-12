@@ -10,7 +10,9 @@
     <div class="row">
         <form id="demo-form" data-parsley-validate class="form-horizontal form-label-left" method="post"
               action="{{ route('dashboard.family.update', $family) }}">
-            @csrf
+            @csrf_field
+            <!-- {{ methodfield('PUT') }} -->
+            @method('PATCH')
             <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
                     <div class="x_title">
@@ -35,7 +37,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">NIK Suami <span
                                     class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" required="required" value="{{ old('nik_suami') }}"
+                                <input type="text" id="last-name" required="required" value="{{ $family->father->nik }}"
                                        class="form-control col-md-7 col-xs-12" name="nik_suami"
                                 >
                             </div>
@@ -44,7 +46,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Tempat Lahir Suami
                                 <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" required="required"
+                                <input type="text" id="last-name" required="required" value="{{ $family->father->birth_place }}"
                                        class="form-control col-md-7 col-xs-12" name="tempat_lahir_suami"
                                 >
                             </div>
@@ -61,7 +63,7 @@
                                                 <input type="text" class="form-control has-feedback-left"
                                                        id="tanggal-lahir-suami" placeholder="First Name"
                                                        aria-describedby="inputSuccess2Status2"
-                                                       name="tanggal_lahir_suami"
+                                                       name="tanggal_lahir_suami" value="{{ $family->father->birth_date->format('d/m/Y') }}"
                                                 >
                                                 <span class="fa fa-calendar-o form-control-feedback left"
                                                       aria-hidden="true"></span>
@@ -76,7 +78,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Agama</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="agama_suami" required>
+                                <select class="form-control" name="agama_suami" required >
                                     @foreach($agamas as $agama)
                                         <option value="{{ $agama->id }}">{{ $agama->name }}</option>
                                     @endforeach
@@ -88,7 +90,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Pekerjaan Suami
                                 <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" required="required"
+                                <input type="text" id="last-name" required="required" value="{{ $family->father->job }}"
                                        class="form-control col-md-7 col-xs-12" name="pekerjaan_suami">
                             </div>
                         </div>
@@ -112,7 +114,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nama Istri <span
                                     class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="first-name" required="required"
+                                <input type="text" id="first-name" required="required" value="{{ $family->mother->name }}"
                                        class="form-control col-md-7 col-xs-12" name="nama_istri">
                             </div>
                         </div>
@@ -120,7 +122,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">NIK Istri <span
                                     class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" required="required"
+                                <input type="text" id="last-name" required="required" value="{{ $family->mother->nik }}"
                                        class="form-control col-md-7 col-xs-12" name="nik_istri">
                             </div>
                         </div>
@@ -128,7 +130,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Tempat Lahir Istri
                                 <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" required="required"
+                                <input type="text" id="last-name" required="required" value="{{ $family->mother->birth_place }}"
                                        class="form-control col-md-7 col-xs-12" name="tempat_lahir_istri">
                             </div>
                         </div>
@@ -144,7 +146,7 @@
                                                 <input type="text" class="form-control has-feedback-left"
                                                        id="tanggal-lahir-istri" placeholder="First Name"
                                                        aria-describedby="inputSuccess2Status2"
-                                                       name="tanggal_lahir_istri">
+                                                       name="tanggal_lahir_istri" value="{{ $family->mother->birth_date->format('d/m/Y') }}" >
                                                 <span class="fa fa-calendar-o form-control-feedback left"
                                                       aria-hidden="true"></span>
                                                 <span id="inputSuccess2Status3" class="sr-only">(success)</span>
@@ -171,7 +173,7 @@
                                 <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" id="last-name" required="required"
-                                       class="form-control col-md-7 col-xs-12" name="pekerjaan_istri">
+                                       class="form-control col-md-7 col-xs-12" name="pekerjaan_istri" value="{{ $family->mother->job }}">
                             </div>
                         </div>
                     </div>
@@ -186,7 +188,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nomor KK <span
                                     class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="first-name" required="required"
+                                <input type="text" id="first-name" required="required" value="{{ $family->no_kk }}"
                                        class="form-control col-md-7 col-xs-12" name="no_kk">
                             </div>
                         </div>
@@ -195,7 +197,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Alamat
                                 Pasangan<span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" required="required"
+                                <input type="text" id="last-name" required="required" value="{{ $family->address }}"
                                        class="form-control col-md-7 col-xs-12" name="alamat_pasangan">
                             </div>
                         </div>
@@ -210,7 +212,7 @@
                                             <div class="col-md-11 xdisplay_inputx form-group has-feedback">
                                                 <input type="text" class="form-control has-feedback-left"
                                                        id="tanggal-menikah" placeholder="First Name"
-                                                       aria-describedby="inputSuccess2Status2" name="tanggal_menikah">
+                                                       aria-describedby="inputSuccess2Status2" name="tanggal_menikah" value="{{ $family->married_at->format('d/m/Y') }}">
                                                 <span class="fa fa-calendar-o form-control-feedback left"
                                                       aria-hidden="true"></span>
                                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
