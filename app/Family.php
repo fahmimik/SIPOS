@@ -21,7 +21,7 @@ class Family extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -30,6 +30,7 @@ class Family extends Model
      * @var array
      */
     protected $fillable = ['mother_id', 'father_id', 'married_at', 'address', 'no_kk', 'created_at', 'updated_at', 'deleted_at'];
+    protected $dates = ['married_at', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

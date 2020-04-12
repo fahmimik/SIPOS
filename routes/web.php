@@ -32,13 +32,13 @@ Route::group(
 
         Route::resource('users', 'UserController')->middleware('role:admin');
 
-        Route::get('parents', 'ParentsController@index')->name('parents.index')->middleware('role:all');
-        Route::post('parents', 'ParentsController@store')->name('parents.store')->middleware('role:admin|bidan');
-        Route::get('parents/create', 'ParentsController@create')->name('parents.create')->middleware('role:admin|bidan');
-        Route::get('parents/{parents}', 'ParentsController@show')->name('parents.show')->middleware('role:all');
-        Route::get('parents/{parents}/edit', 'ParentsController@edit')->name('parents.edit')->middleware('role:admin|bidan');
-        Route::put('parents/{parents}', 'ParentsController@update')->name('parents.update')->middleware('role:admin|bidan');
-        Route::delete('parents/{parents}', 'ParentsController@delete')->name('parents.delete')->middleware('role:admin|bidan');
+        Route::get('family', 'FamilyController@index')->name('family.index')->middleware('role:all');
+        Route::post('family', 'FamilyController@store')->name('family.store')->middleware('role:admin|bidan');
+        Route::get('family/create', 'FamilyController@create')->name('family.create')->middleware('role:admin|bidan');
+        Route::get('family/{family}', 'FamilyController@show')->name('family.show')->middleware('role:all');
+        Route::get('family/{family}/edit', 'FamilyController@edit')->name('family.edit')->middleware('role:admin|bidan');
+        Route::put('family/{family}', 'FamilyController@update')->name('family.update')->middleware('role:admin|bidan');
+        Route::delete('family/{family}', 'FamilyController@destroy')->name('family.destroy')->middleware('role:admin|bidan');
 
         Route::group(['prefix' => '/ajax/dashboard', 'as' => 'ajax.'], function(){
 

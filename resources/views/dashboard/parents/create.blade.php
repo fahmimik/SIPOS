@@ -9,7 +9,7 @@
 @section('content')
     <div class="row">
         <form id="demo-form" data-parsley-validate class="form-horizontal form-label-left" method="post"
-              action="{{ route('dashboard.parents.store') }}">
+              action="{{ route('dashboard.family.store') }}">
             @csrf
             <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
@@ -225,7 +225,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                 <button class="btn btn-primary" type="button"
-                                        onclick="window.location = '{{ route('dashboard.parents.index') }}'">Cancel
+                                        onclick="window.location = '{{ route('dashboard.family.index') }}'">Cancel
                                 </button>
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </div>

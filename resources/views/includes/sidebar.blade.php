@@ -17,6 +17,6 @@
     {{--    <li><a href="{{ route('anak.index') }}"><i class="fa fa-home"></i> Daftar Anak</a>--}}
     {{--    <li><a href="{{ route('posyandu.index') }}"><i class="fa fa-home"></i> Daftar Posyandu</a>--}}
     {{--    <li><a href="{{ route('desa.index') }}"><i class="fa fa-home"></i> Daftar Desa</a>--}}
-    <li><a href="{{ route('dashboard.parents.index') }}"><i class="fa fa-home"></i> Daftar Pasangan</a>
+    <li><a href="{{ route('dashboard.family.index') }}"><i class="fa fa-home"></i> Daftar Pasangan</a>
     <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-home"></i> Daftar Users</a>
 </ul>
