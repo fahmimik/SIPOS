@@ -10,9 +10,8 @@
     <div class="row">
         <form id="demo-form" data-parsley-validate class="form-horizontal form-label-left" method="post"
               action="{{ route('dashboard.family.update', $family) }}">
-            @csrf_field
-            <!-- {{ methodfield('PUT') }} -->
-            @method('PATCH')
+              @csrf
+              @method('PATCH')
             <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
                     <div class="x_title">

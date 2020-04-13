@@ -158,7 +158,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Agama</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="agama_istri" required>
+                                <select class="form-control" name="agama" required>
                                     @foreach($agamas as $agama)
                                         <option value="{{ $agama->id }}">{{ $agama->name }}</option>
                                     @endforeach

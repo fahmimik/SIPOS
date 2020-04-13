@@ -37,8 +37,16 @@ Route::group(
         Route::get('family/create', 'FamilyController@create')->name('family.create')->middleware('role:admin|bidan');
         Route::get('family/{family}', 'FamilyController@show')->name('family.show')->middleware('role:all');
         Route::get('family/{family}/edit', 'FamilyController@edit')->name('family.edit')->middleware('role:admin|bidan');
-        Route::post('family/{family}', 'FamilyController@update')->name('family.update')->middleware('role:admin|bidan');
+        Route::patch('family/{family}', 'FamilyController@update')->name('family.update')->middleware('role:admin|bidan');
         Route::delete('family/{family}', 'FamilyController@destroy')->name('family.destroy')->middleware('role:admin|bidan');
+
+        Route::get('children', 'ChildrenController@index')->name('children.index')->middleware('role:all');
+        Route::post('children', 'ChildrenController@store')->name('children.store')->middleware('role:all');
+        Route::get('children/create', 'ChildrenController@create')->name('children.create')->middleware('role:all');
+        Route::get('children/{children}', 'ChildrenController@show')->name('children.show')->middleware('role:all');
+        Route::get('children/{children}/edit', 'ChildrenController@edit')->name('children.edit')->middleware('role:all');
+        Route::patch('children/{children}', 'ChildrenController@update')->name('children.update')->middleware('role:all');
+        Route::delete('children/{children}', 'ChildrenController@destroy')->name('children.destroy')->middleware('role:all');
 
         Route::group(['prefix' => '/ajax/dashboard', 'as' => 'ajax.'], function(){
 

@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Daftar Pasangan')
+@section('title', 'Daftar Anak')
 
 @section('css')
     <link href="{{ asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
@@ -13,11 +13,11 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Daftar Pasangan</h2>
+                    <h2>Daftar Anak</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
                             <button type="button" class="btn btn-success"
-                                    onclick="window.location='{{ route('dashboard.family.create') }}';">Tambah Pasangan
+                                    onclick="window.location='{{ route('dashboard.children.create') }}';">Tambah Anak
                             </button>
                         </li>
                     </ul>
@@ -31,36 +31,38 @@
                         @method('DELETE')
                         @csrf
                     </form>
-                    <table class="table table-striped table-bordered" id="family-table">
+                    <table class="table table-striped table-bordered" id="children-table">
                         <thead>
                         <tr>
-                            <th>No</th>
-                            <th>No KK</th>
-                            <th>Nama Suami</th>
-                            <th>Nama Istri</th>
-                            <th>Tangagl Menikah</th>
-                            <th>Alamat</th>
-                            <th>Jumlah Anak</th>
-                            <th width="10%">Action</th>
+                          <th>No</th>
+                          <th>Nama Anak</th>
+                          <th>Nama Ibu</th>
+                          <th>Nama Ayah</th>
+                          <th>Tempat Lahir</th>
+                          <th>Tanggal Lahir</th>
+                          <th>Agama</th>
+                          <th width="10%">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($families as $index => $family)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $family->no_kk }}</td>
-                                <td>{{ $family->father->name }}</td>
-                                <td>{{ $family->mother->name }}</td>
-                                <td>{{ $family->married_at->format('d/m/Y') }}</td>
-                                <td>{{ $family->address }}</td>
-                                <td>{{ $family->childrens->count() }}</td>
-                                <td>
-                                    <a href="{{ route('dashboard.family.show', $family) }}" class="btn btn-primary"><i class="fa fa-info"></i></a>
-                                    <a class="btn btn-success" href="{{ route('dashboard.family.edit', $family) }}"><i class="fa fa-edit"></i></a>
-                                    <a class="btn btn-danger" onclick="destroy('{{ route("dashboard.family.destroy", $family) }}')"><i class="fa fa-trash"></i></a>
-                                </td>
-                            </tr>
-                        @endforeach
+                          @foreach($childrens as $index => $children)
+                              <tr>
+                                  <td>{{ $index + 1 }}</td>
+                                  <td>{{ $children->name }}</td>
+                                  <td>{{ $children->family->mother->name }}</td>
+                                  <td>{{ $children->family->father->name }}</td>
+                                  <td>{{ $children->birth_place }}</td>
+                                  <td>{{ $children->birth_date->format('d/m/Y') }}</td>
+                                  <td>{{ $children->religion->name }}</td>
+                                  <td>
+                                      <a href="{{ route('dashboard.children.show', $children) }}" class="btn btn-primary"><i class="fa fa-info"></i></a>
+                                      <a class="btn btn-success" href="{{ route('dashboard.children.edit', $children) }}"><i class="fa fa-edit"></i></a>
+                                      <a class="btn btn-danger" onclick="destroy('{{ route("dashboard.children.destroy", $children) }}')"><i class="fa fa-trash"></i></a>
+                                  </td>
+                              </tr>
+                          @endforeach
+
+
                         </tbody>
                     </table>
                 </div>
@@ -80,6 +82,6 @@
             event.stopPropagation();
         }
 
-        $('#family-table').DataTable();
+        $('#children-table').DataTable();
     </script>
 @endsection
