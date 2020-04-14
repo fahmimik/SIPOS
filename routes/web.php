@@ -40,6 +40,14 @@ Route::group(
         Route::patch('family/{family}', 'FamilyController@update')->name('family.update')->middleware('role:admin|bidan');
         Route::delete('family/{family}', 'FamilyController@destroy')->name('family.destroy')->middleware('role:admin|bidan');
 
+        Route::get('pregnant', 'PregnantController@index')->name('pregnant.index')->middleware('role:admin|bidan');
+        Route::post('pregnant', 'PregnantController@store')->name('pregnant.store')->middleware('role:admin|bidan');
+        Route::get('pregnant/create', 'PregnantController@create')->name('pregnant.create')->middleware('role:admin|bidan');
+        Route::get('pregnant/{pregnant}', 'PregnantController@show')->name('pregnant.show')->middleware('role:admin|bidan');
+        Route::get('pregnant/{pregnant}/edit', 'PregnantController@edit')->name('pregnant.edit')->middleware('role:admin|bidan');
+        Route::patch('pregnant/{pregnant}', 'PregnantController@update')->name('pregnant.update')->middleware('role:admin|bidan');
+        Route::delete('pregnant/{pregnant}', 'PregnantController@destroy')->name('pregnant.destroy')->middleware('role:admin|bidan');
+
         Route::get('children', 'ChildrenController@index')->name('children.index')->middleware('role:all');
         Route::post('children', 'ChildrenController@store')->name('children.store')->middleware('role:all');
         Route::get('children/create', 'ChildrenController@create')->name('children.create')->middleware('role:all');

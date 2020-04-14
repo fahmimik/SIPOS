@@ -22,7 +22,7 @@ class Pregnant extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -30,7 +30,8 @@ class Pregnant extends Model
     /**
      * @var array
      */
-    protected $fillable = ['parent_id', 'number_of_pregnant', 'lila', 'weight', 'pregnant_age', 'blood_pill', 'tetanus_immunization', 'created_at', 'updated_at', 'deleted_at'];
+    protected $fillable = ['parent_id','visit_at', 'number_of_pregnant', 'lila', 'weight', 'pregnant_age', 'blood_pill', 'tetanus_immunization', 'created_at', 'updated_at', 'deleted_at'];
+    protected $dates = ['visit_at', 'created_at', 'updated_at', 'deleted_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

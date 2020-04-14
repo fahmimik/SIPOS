@@ -13,8 +13,8 @@
 {{--            <li><a href="{{ route('kms-bayi.create') }}">Input KMS</a></li>--}}
 {{--        </ul>--}}
 {{--    </li>--}}
-    {{--<li><a href="{{ route('dashboard.parentnotes.index') }}"><i class="fa fa-home"></i> Daftar Wuspus</a>--}}
     <li><a href="{{ route('dashboard.family.index') }}"><i class="fa fa-home"></i> Daftar Pasangan</a>
+      <li><a href="{{ route('dashboard.pregnant.index') }}"><i class="fa fa-home"></i> Layanan Ibu Hamil</a>
     <li><a href="{{ route('dashboard.children.index') }}"><i class="fa fa-home"></i> Daftar Anak</a>
     <li><a href="{{ route('dashboard.users.index') }}"><i class="fa fa-home"></i> Daftar Users</a>
 </ul>

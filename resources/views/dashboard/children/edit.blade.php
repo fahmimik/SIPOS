@@ -62,7 +62,7 @@
                                         <div class="controls">
                                             <div class="col-md-11 xdisplay_inputx form-group has-feedback">
                                                 <input type="text" class="form-control has-feedback-left"
-                                                       id="tanggal-lahir" placeholder="First Name"
+                                                       id="tanggal-lahir" placeholder=""
                                                        aria-describedby="inputSuccess2Status2" name="tanggal_lahir" value="{{ $children->birth_date->format('d/m/Y') }}"
                                                        >
                                                 <span class="fa fa-calendar-o form-control-feedback left"

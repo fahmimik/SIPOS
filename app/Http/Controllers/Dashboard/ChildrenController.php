@@ -71,6 +71,9 @@ class ChildrenController extends Controller
             DB::rollBack();
             // dd($exception);
         }
+        toastr()->success("Data berhasil ditambahkan");
+
+        return redirect()->route('dashboard.children.index');
 
     }
 
@@ -93,6 +96,7 @@ class ChildrenController extends Controller
      */
     public function edit(Children $children)
     {
+      dd($children);
       $agamas = Religion::get();
       $families = Family::get();
       return view('dashboard.children.edit', compact('children', 'agamas', 'families'));

@@ -59,7 +59,7 @@
                                         <div class="controls">
                                             <div class="col-md-11 xdisplay_inputx form-group has-feedback">
                                                 <input type="text" class="form-control has-feedback-left"
-                                                       id="tanggal-lahir-suami" placeholder="First Name"
+                                                       id="tanggal-lahir-suami" placeholder=""
                                                        aria-describedby="inputSuccess2Status2"
                                                        name="tanggal_lahir_suami"
                                                 >
@@ -142,7 +142,7 @@
                                         <div class="controls">
                                             <div class="col-md-11 xdisplay_inputx form-group has-feedback">
                                                 <input type="text" class="form-control has-feedback-left"
-                                                       id="tanggal-lahir-istri" placeholder="First Name"
+                                                       id="tanggal-lahir-istri" placeholder=""
                                                        aria-describedby="inputSuccess2Status2"
                                                        name="tanggal_lahir_istri">
                                                 <span class="fa fa-calendar-o form-control-feedback left"
@@ -209,7 +209,7 @@
                                         <div class="controls">
                                             <div class="col-md-11 xdisplay_inputx form-group has-feedback">
                                                 <input type="text" class="form-control has-feedback-left"
-                                                       id="tanggal-menikah" placeholder="First Name"
+                                                       id="tanggal-menikah" placeholder=""
                                                        aria-describedby="inputSuccess2Status2" name="tanggal_menikah">
                                                 <span class="fa fa-calendar-o form-control-feedback left"
                                                       aria-hidden="true"></span>
