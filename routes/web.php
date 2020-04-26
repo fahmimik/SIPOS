@@ -56,6 +56,10 @@ Route::group(
         Route::patch('children/{children}', 'ChildrenController@update')->name('children.update')->middleware('role:all');
         Route::delete('children/{children}', 'ChildrenController@destroy')->name('children.destroy')->middleware('role:all');
 
+        Route::get('activity', 'ActivityController@index')->name('activity.index')->middleware('role:all');
+        Route::get('activity/create', 'ActivityController@create')->name('activity.create')->middleware('role:all');
+        Route::post('activity', 'ActivityController@store')->name('activity.store')->middleware('role:all');
+
         Route::group(['prefix' => '/ajax/dashboard', 'as' => 'ajax.'], function(){
 
         });

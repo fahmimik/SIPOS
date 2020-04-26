@@ -61,8 +61,6 @@ class ParentsController extends Controller
         try {
             DB::beginTransaction();
 
-            return Carbon::createFromFormat('d/m/Y', $request->tanggal_lahir_suami);
-
             $ayah = Parents::create([
                 'religion_id' => $request->agama_suami,
                 'name' => $request->nama_suami,

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $deleted_at
  * @property Activity[] $activities
  */
-class Immunizations extends Model
+class Immunization extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
