@@ -148,7 +148,7 @@
 
                 <div class="x_content">
                     <table>
-                        
+
                     </table>
                 </div>
             </div>
