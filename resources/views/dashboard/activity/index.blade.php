@@ -19,7 +19,7 @@
                         <li>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <select id="select-year" class="select2_single form-control">
+                                    <select id="select-age" class="select2_single form-control">
                                         {{-- foreach age in here --}}
                                         <option value="-1">Pilih Umur</option>
                                         @foreach($list_of_ages as $index => $age)
@@ -35,7 +35,7 @@
                         <li>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <select id="select-year" class="select2_single form-control">
+                                    <select id="select-month" class="select2_single form-control">
                                         {{-- foreach month in here --}}
                                         <option value="-1">Pilih Bulan</option>
                                         @foreach($list_of_months as $index => $month)
@@ -111,6 +111,41 @@
             event.stopPropagation();
         }
 
-        $('#activity-table').DataTable();
+        var datatable = $('#activity-table').DataTable({
+            ajax: {
+                url: '{{ route('ajax.activities') }}',
+                data: (d) => {
+                    // passing data ke ajax
+                    d.age = $('#select-age').val(); // ambil value dari select age
+                    d.year = $('#select-year').val(); // ambil value dari select year
+                    d.month = $('#select-month').val(); // ambil value dari select month
+                    console.log(d);
+                }
+            },
+            // dari yang udah digenerate di backend, pasang disini berururtan sesuai dari table
+            // parameternya data dan name dan valuenya sama tapi ada beberapa berbeda
+            columns: [
+                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'children.name', name: 'children.name'}, // buat relasi dari activity ke children lalu ambil name, cek http://localhost:8000/ajax/dashboard/activities?age=-1&year=-1&month=-1
+                {data: '_date', name: 'created_at'}, // disini beda, karena _date buat data yang ditampilkan dan created at buat data yang diolah
+                {data: 'weight', name: 'weight'},
+                {data: 'height', name: 'height'},
+                {data: '_immunization', name: '_immunization'}, // custom kolom immunization
+                {data: 'notes', name: 'notes'},
+                {data: '_action', name: '_action'}, // custom kolom action
+            ]
+        });
+
+        $('#select-age').change(function(){ // buat trigger jika select umur berubah, maka datatable ngeload ulang
+            datatable.ajax.reload();
+        });
+
+        $('#select-month').change(function(){ // buat trigger jika select month berubah, maka datatable ngeload ulang
+            datatable.ajax.reload();
+        });
+
+        $('#select-year').change(function(){ // buat trigger jika select year berubah, maka datatable ngeload ulang
+            datatable.ajax.reload();
+        });
     </script>
 @endsection

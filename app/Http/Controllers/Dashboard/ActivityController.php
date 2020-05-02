@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Activity;
 use App\BreastMilk;
 use App\Children;
 use App\Http\Controllers\Controller;
 use App\Immunization;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ActivityController extends Controller
 {
@@ -76,8 +78,62 @@ class ActivityController extends Controller
             'vitamin_a' => 'required'
         ]);
 
-        // TODO Inserting to DB with logic
+        try{
+            // Init transaction
+            DB::beginTransaction();
+            // TODO Inserting to DB with logic
+            $child = Children::with('activities')->find($request->child);
+            $last_activity = $child->activities->last(); // ambil kegiatan posyandu yang terakhir
+            if(is_null($last_activity)){ // Jika tidak ada kegiatan posyandu sama sekali maka status baru
+                $activity = $child->activities()->create([ // Membuat kegiatan posyandu dengan status bari
+                    'weight' => $request->weight,
+                    'height' => $request->height,
+                    'status' => 1,
+                    'age' => 1,
+                    'vitamin_a' => $request->vitamin_a
+                ]);
 
-        return $request;
+                // tambah data imunisasi sesuai pemeriksaan
+                $activity->immunizations()->attach($request->immunizations);
+
+                // tambah data asi sesuai pemeriksaan
+                $activity->breastMilks()->attach($request->breast_milks);
+            } else {
+                $age = Carbon::now()->lastOfMonth()->diffInMonths($child->birth_date); // ambil umur dari anak dalam bulan
+
+                if($age - $last_activity->age > 1){ // cek kehadiran dari selisih umur bayi sekarang dengan pemeriksaan terakhir
+                    $status = '0'; // status tidak hadri dari pemeriksaan sebelumnya
+                } else if($request->weight > $last_activity->weight){ // cek selisih BB bayi dari pemeriksaan terakhir
+                    $status = '2'; // status naik
+                } else {
+                    $status = '3'; // status turun
+                }
+
+                $activity = $child->activities()->create([
+                    'weight' => $request->weight,
+                    'height' => $request->height,
+                    'status' => $status,
+                    'age' => $age,
+                    'vitamin_a' => $request->vitamin_a
+                ]);
+
+                // tambah data imunisasi sesuai pemeriksaan
+                $activity->immunizations()->attach($request->immunizations);
+
+                // tambah data asi sesuai pemeriksaan
+                $activity->breastMilks()->attach($request->breast_milks);
+            }
+
+            // Commit transaction
+            DB::commit();
+
+            // Buat notifikasi / alert
+            toastSuccess('Data kegiatan berhasil dibuat');
+        } catch (\Exception $exception){
+            // Rollback transaction
+            DB::rollBack();
+            dd($exception); // lihat errornya
+        }
+        return redirect()->back();
     }
 }

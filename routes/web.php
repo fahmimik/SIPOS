@@ -59,9 +59,10 @@ Route::group(
         Route::get('activity', 'ActivityController@index')->name('activity.index')->middleware('role:all');
         Route::get('activity/create', 'ActivityController@create')->name('activity.create')->middleware('role:all');
         Route::post('activity', 'ActivityController@store')->name('activity.store')->middleware('role:all');
+        Route::get('activity/{activity}/edit', 'ActivityController@edit')->name('activity.edit')->middleware('role:all');
+    });
 
-        Route::group(['prefix' => '/ajax/dashboard', 'as' => 'ajax.'], function(){
+Route::group(['prefix' => '/ajax/dashboard', 'as' => 'ajax.'], function () {
+    Route::get('/activities', 'AjaxController@getActivities')->name('activities');
+});
 
-        });
-    }
-);

@@ -44,7 +44,7 @@
                                         <div class="controls">
                                             <div class="col-md-11 xdisplay_inputx form-group has-feedback">
                                                 <input type="text" class="form-control has-feedback-left"
-                                                       id="tanggal-kegiatan" placeholder="" value="{{ old('activity_date') }}"
+                                                       id="tanggal-kegiatan" placeholder="" value="{{ now()->format('d/m/Y') }}"
                                                        aria-describedby="inputSuccess2Status2" name="activity_date">
                                                 <span class="fa fa-calendar-o form-control-feedback left"
                                                       aria-hidden="true"></span>
@@ -72,7 +72,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="month" required id="select-month">
                                     @foreach($list_of_months as $index => $month)
-                                        <option value="{{ $index + 1 }}" {{ old('month') == $index + 1 ? 'selected' : '' }}>{{ $month }}</option>
+                                        <option value="{{ $index + 1 }}" {{ now()->month == $index + 1 ? 'selected' : '' }}>{{ $month }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -182,7 +182,7 @@
                     // hide vitamin group
                     $('#vitamin-group').hide();
                 }
-            })
+            }).change();
         });
     </script>
 @endsection

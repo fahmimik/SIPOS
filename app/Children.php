@@ -57,4 +57,8 @@ class Children extends Model
     {
         return $this->hasMany('App\Activity', 'child_id');
     }
+
+    public function getGenderNameAttribute(){ // pelajari ini https://laravel.com/docs/7.x/eloquent-mutators#defining-an-accessor
+        return $this->gender === 1 ? 'Perempuan' : 'Laki-Laki'; // pelajari https://davidwalsh.name/php-shorthand-if-else-ternary-operators
+    }
 }
