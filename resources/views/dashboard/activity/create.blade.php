@@ -57,24 +57,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Umur Anak</label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Umur Anak
+                                <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="age" required>
-                                    @foreach($list_of_ages as $index => $age)
-                                        <option value="{{ $index }}" {{ old('age') == $index ? 'selected' : '' }}>{{ $age }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Bulan</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="month" required id="select-month">
-                                    @foreach($list_of_months as $index => $month)
-                                        <option value="{{ $index + 1 }}" {{ now()->month == $index + 1 ? 'selected' : '' }}>{{ $month }}</option>
-                                    @endforeach
-                                </select>
+                                <input type="number" required="required" value="{{ old('age') }}"
+                                       class="form-control col-md-7 col-xs-12" name="age" min="0" max="60" autocomplete="off">
                             </div>
                         </div>
 
@@ -82,7 +69,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Berat (kg)
                                 <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" required="required" value="{{ old('weight') }}"
+                                <input type="number" required="required" value="{{ old('weight') }}"  autocomplete="off"
                                        class="form-control col-md-7 col-xs-12" name="weight" step="0.1" min="0">
                             </div>
                         </div>
@@ -91,8 +78,15 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Panjang (cm)
                                 <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" required="required" value="{{ old('height') }}"
+                                <input type="number" required="required" value="{{ old('height') }}"  autocomplete="off"
                                        class="form-control col-md-7 col-xs-12" name="height" step="0.1" min="0">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 ">Keterangan</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea name="note" class="resizable_textarea form-control" placeholder="Beri catatan tentang pemeriksaan" style="margin-top: 0px; margin-bottom: 0px; height: 187px;">{{ old('note') }}</textarea>
                             </div>
                         </div>
 

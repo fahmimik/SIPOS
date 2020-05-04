@@ -147,8 +147,43 @@
                 </div>
 
                 <div class="x_content">
-                    <table>
-
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Tanggal</th>
+                            <th>Umur</th>
+                            <th>Berat</th>
+                            <th>Panjang</th>
+                            <th>Asi</th>
+                            <th>Imunisasi</th>
+                            <th>Vit A</th>
+                            <th>Catatan</th>
+                            <th>BB/U</th>
+                            <th>TB/U</th>
+                            <th>BB/TB</th>
+                            <th>IMT</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($activities as $index => $activity)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $activity->created_at->format('d/m/Y') }}</td>
+                                <td>{{ $activity->age }}</td>
+                                <td>{{ $activity->weight }}</td>
+                                <td>{{ $activity->height }}</td>
+                                <td>{{ implode(', ', $activity->breastMilks->pluck('name')->toArray()) }}</td>
+                                <td>{{ implode(', ', $activity->immunizations->pluck('name')->toArray()) }}</td>
+                                <td>{{ $activity->vitamin_a == 1 ? 'Diberi' : '-' }}</td>
+                                <td>{{ $activity->notes }}</td>
+                                <td class="{{ $activity->status_bb_per_u['type'] }}">{{ $activity->status_bb_per_u['title'] }}</td>
+                                <td class="{{ $activity->status_tb_per_u['type'] }}">{{ $activity->status_tb_per_u['title'] }}</td>
+                                <td>{{ $activity->bb_per_tb }}</td>
+                                <td class="{{ $activity->status_imt['type'] }}">{{ $activity->['title'] }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
                     </table>
                 </div>
             </div>

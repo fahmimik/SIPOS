@@ -56,7 +56,7 @@ class AjaxController extends Controller
                     ->pluck('name') // ambil data imunisasi dari setiap activity dalam bentuk array
                     ->toArray(); // rubah dari bentuk collection ke bentuk array
 
-                $immunization = implode(', ', $list_immunizations); // dari data array tadi gabungkan ke bentuk string dipisah oleh koma
+                $immunization = implode(', ', $list_immunizations);  // dari data array tadi gabungkan ke bentuk string dipisah oleh koma
                 return $immunization; // return string tadi
             })
             ->addColumn('_date', function($activity){ // Tambah custom kolom date dan harus diawali dengan _
@@ -66,7 +66,7 @@ class AjaxController extends Controller
                 // actionnya nanti cuman edit dan detail
 
                 // Action detail
-                $detail_url = route('dashboard.children.show', $activity); // route ke detail anak, karena grafiknya disitu
+                $detail_url = route('dashboard.children.show', $activity->children); // route ke detail anak, karena grafiknya disitu
                 $detail = "<a href=\"$detail_url\" class=\"btn btn-sm btn-primary\"><i class=\"fa fa-info\"></i></a>";
 
                 // Action edit

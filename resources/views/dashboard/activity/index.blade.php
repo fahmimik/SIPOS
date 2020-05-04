@@ -51,11 +51,9 @@
                                 <div class="col-md-12">
                                     <select id="select-year" class="select2_single form-control">
                                         <option value="-1">Pilih Tahun</option>
-                                        <option value="2019">2019</option>
-                                        <option value="2020">2020</option>
-                                        <option value="2021">2021</option>
-                                        <option value="2022">2022</option>
-                                        <option value="2023">2023</option>
+                                        @foreach($list_of_years as $year)
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -119,7 +117,6 @@
                     d.age = $('#select-age').val(); // ambil value dari select age
                     d.year = $('#select-year').val(); // ambil value dari select year
                     d.month = $('#select-month').val(); // ambil value dari select month
-                    console.log(d);
                 }
             },
             // dari yang udah digenerate di backend, pasang disini berururtan sesuai dari table
@@ -136,15 +133,15 @@
             ]
         });
 
-        $('#select-age').change(function(){ // buat trigger jika select umur berubah, maka datatable ngeload ulang
+        $('#select-age').change(function () { // buat trigger jika select umur berubah, maka datatable ngeload ulang
             datatable.ajax.reload();
         });
 
-        $('#select-month').change(function(){ // buat trigger jika select month berubah, maka datatable ngeload ulang
+        $('#select-month').change(function () { // buat trigger jika select month berubah, maka datatable ngeload ulang
             datatable.ajax.reload();
         });
 
-        $('#select-year').change(function(){ // buat trigger jika select year berubah, maka datatable ngeload ulang
+        $('#select-year').change(function () { // buat trigger jika select year berubah, maka datatable ngeload ulang
             datatable.ajax.reload();
         });
     </script>

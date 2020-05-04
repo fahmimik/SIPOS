@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\BaseHeightPerAge;
+use App\BaseImtPerAge;
+use App\BaseWeightPerAge;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\ActivityHelper;
 use Illuminate\Http\Request;
 use App\Family;
 use App\Religion;
@@ -12,6 +16,7 @@ use App\Children;
 
 class ChildrenController extends Controller
 {
+    use ActivityHelper;
     /**
      * Display a listing of the resource.
      *
@@ -88,7 +93,31 @@ class ChildrenController extends Controller
         // Langsung return view dengan parameter children
         $father = $children->family->father;
         $mother = $children->family->mother;
-        return view('dashboard.children.show', compact('children', 'father', 'mother'));
+        $activities = $children->activities;
+
+        // Ambil base data acuan
+        $gender = $children->gender == 1 ? 'P' : 'L';
+        $base_bb_per_u = BaseWeightPerAge::where('gender', $gender)->whereIn('line', [3, 4, 5])->get();
+        $base_tb_per_u = BaseHeightPerAge::where('gender', $gender)->whereIn('line', [3, 4, 5])->get();
+        $base_imt = BaseImtPerAge::where('gender', $gender)->whereIn('line', [3, 4, 5])->get();
+
+        foreach ($activities as $activity) {
+            $activity->bb_per_u = number_format($activity->weight, 2);
+            $activity->tb_per_u = number_format($activity->height, 2);
+            $activity->bb_per_tb = number_format($activity->weight / $activity->height, 2);
+            $activity->imt = number_format($activity->weight / (($activity->height / 100) * ($activity->height / 100)), 2);
+
+            $value_bb_per_u = $this->calculateBaseValueByAge($activity->bb_per_u, $base_bb_per_u, $activity->age);
+            $activity->status_bb_per_u = $this->getWeightPerAgeStatus($value_bb_per_u);
+
+            $value_tb_per_u = $this->calculateBaseValueByAge($activity->tb_per_u, $base_tb_per_u, $activity->age);
+            $activity->status_tb_per_u = $this->getHeightPerAgeStatus($value_tb_per_u);
+
+            $value_imt = $this->calculateBaseValueByAge($activity->imt, $base_imt, $activity->age);
+            $activity->status_imt = $this->getImtPerAgeStatus($value_imt);
+        }
+
+        return view('dashboard.children.show', compact('children', 'father', 'mother', 'activities'));
     }
 
     /**
