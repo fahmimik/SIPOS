@@ -57,7 +57,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Umur Anak
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Umur Anak (Bulan)
                                 <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="number" required="required" value="{{ old('age') }}"

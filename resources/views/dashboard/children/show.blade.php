@@ -133,7 +133,7 @@
                 </div>
 
                 <div class="x_content">
-
+                    <div id="chart_div"></div>
                 </div>
             </div>
 
@@ -180,7 +180,7 @@
                                 <td class="{{ $activity->status_bb_per_u['type'] }}">{{ $activity->status_bb_per_u['title'] }}</td>
                                 <td class="{{ $activity->status_tb_per_u['type'] }}">{{ $activity->status_tb_per_u['title'] }}</td>
                                 <td>{{ $activity->bb_per_tb }}</td>
-                                <td class="{{ $activity->status_imt['type'] }}">{{ $activity->['title'] }}</td>
+                                <td class="{{ $activity->status_imt['type'] }}">{{ $activity->status_imt['title'] }}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -192,5 +192,44 @@
 @endsection
 
 @section('js')
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
+    <script>
+        function init() {
+            google.load("visualization", "1.1", {
+                packages: ["corechart"],
+                callback: 'drawChart'
+            });
+        }
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable({!! json_encode($chart_data) !!});
+
+            var options = {
+                title: 'Grafik Kartu Menuju Sehat',
+                hAxis: {title: 'Umur (bulan)'},
+                vAxis: {title: 'Bobot (kg)'},
+                interpolateNulls: true,
+                height: 400,
+                series: {
+                    0: {areaOpacity: 1},
+                    1: {areaOpacity: 1},
+                    2: {areaOpacity: 1},
+                    3: {areaOpacity: 1},
+                    4: {areaOpacity: 1},
+                    5: {areaOpacity: 1},
+                    6: {areaOpacity: 1},
+                    7: {areaOpacity: 1, type: 'line'},
+                },
+                colors: ['#ffff00', '#5FE118', '#22b72a', '#22b72a', '#5FE118', '#ffff00', '#ff0000', '#000']
+            };
+
+            var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+        $(document).ready(function(){
+            init();
+        })
+    </script>
 @endsection

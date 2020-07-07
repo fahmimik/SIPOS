@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Activity;
 use App\BaseHeightPerAge;
 use App\BaseImtPerAge;
 use App\BaseWeightPerAge;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Family;
 use App\Religion;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use App\Children;
 
@@ -70,13 +72,22 @@ class ChildrenController extends Controller
                 'gender' => $request->jenis_kelamin
             ]);
 
+            $a = Activity::create([
+                'child_id' => $children->id,
+                'weight' => $request->berat_lahir,
+                'height' => $request->panjang_lahir,
+                'status' => '1',
+                'age' => 0,
+                'notes' => 'Bayi Lahir'
+            ]);
 
             DB::commit();
+            toastr()->success("Data berhasil ditambahkan");
         } catch (\Exception $exception) {
             DB::rollBack();
+            toastr()->error("Data Gagal Ditambahkan, ", $exception->getMessage());
             // dd($exception);
         }
-        toastr()->success("Data berhasil ditambahkan");
 
         return redirect()->route('dashboard.children.index');
 
@@ -94,14 +105,46 @@ class ChildrenController extends Controller
         $father = $children->family->father;
         $mother = $children->family->mother;
         $activities = $children->activities;
-
-        // Ambil base data acuan
         $gender = $children->gender == 1 ? 'P' : 'L';
-        $base_bb_per_u = BaseWeightPerAge::where('gender', $gender)->whereIn('line', [3, 4, 5])->get();
-        $base_tb_per_u = BaseHeightPerAge::where('gender', $gender)->whereIn('line', [3, 4, 5])->get();
-        $base_imt = BaseImtPerAge::where('gender', $gender)->whereIn('line', [3, 4, 5])->get();
 
-        foreach ($activities as $activity) {
+        // Check Cache and get database
+        $base_bb_per_u = Cache::get('base_bb_per_u_' . $gender);
+        if(is_null($base_bb_per_u)){
+            $base_bb_per_u = BaseWeightPerAge::where('gender', $gender)->whereIn('line', [3, 4, 5])->get();
+            Cache::forever('base_bb_per_u_' . $gender, $base_bb_per_u);
+        }
+
+        $base_tb_per_u = Cache::get('base_tb_per_u_' . $gender);
+        if(is_null($base_tb_per_u)){
+            $base_tb_per_u = BaseHeightPerAge::where('gender', $gender)->whereIn('line', [3, 4, 5])->get();
+            Cache::forever('base_tb_per_u_' . $gender, $base_tb_per_u);
+        }
+
+        $base_imt = Cache::get('base_imt_' . $gender);
+        if(is_null($base_imt)){
+            $base_imt = BaseImtPerAge::where('gender', $gender)->whereIn('line', [3, 4, 5])->get();
+            Cache::forever('base_imt_' . $gender, $base_imt);
+        }
+
+        $chart_data = Cache::get('chart_data_' . $gender);
+        if(is_null($chart_data)){
+            $chart_data = [];
+            $base_wpa = Cache::get('base_wpa_' . $gender);
+            if(is_null($base_wpa)){
+                $base_wpa = BaseWeightPerAge::where('gender', $gender)->get()->groupBy('month');
+                Cache::forever('base_wpa_' . $gender, $base_wpa);
+            }
+            foreach ($base_wpa as $key => $wpa){
+                $temp = array_reverse($wpa->pluck('value')->toArray());
+                array_unshift($temp, $key);
+                array_push($temp, null);
+                array_push($chart_data, $temp);
+            }
+
+            Cache::forever('chart_data_' . $gender, $chart_data);
+        }
+
+        foreach ($activities as $index => $activity) {
             $activity->bb_per_u = number_format($activity->weight, 2);
             $activity->tb_per_u = number_format($activity->height, 2);
             $activity->bb_per_tb = number_format($activity->weight / $activity->height, 2);
@@ -115,9 +158,13 @@ class ChildrenController extends Controller
 
             $value_imt = $this->calculateBaseValueByAge($activity->imt, $base_imt, $activity->age);
             $activity->status_imt = $this->getImtPerAgeStatus($value_imt);
+
+            $chart_data[$activity->age][8] = $activity->weight;
         }
 
-        return view('dashboard.children.show', compact('children', 'father', 'mother', 'activities'));
+        array_unshift($chart_data, ["Bulan", "3SD", "2SD", "1SD", "SD", "-1SD", "-2SD", "-3SD", "Data Anak"]);
+
+        return view('dashboard.children.show', compact('children', 'father', 'mother', 'activities', 'chart_data'));
     }
 
     /**
