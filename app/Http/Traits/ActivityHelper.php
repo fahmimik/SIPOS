@@ -15,13 +15,40 @@ trait ActivityHelper
             $line = 3;
         }
 
-        $divisor = $value > $median ? ($base_data->where('month', $age)
+        $divisor = $base_data->where('month', $age)
                 ->where('line', $line)
-                ->first()->value - $median) : ($median - $base_data->where('month', $age)
-                ->where('line', $line)
-                ->first()->value);
+                ->first()->value - $median;
+
+        $divisor = abs($divisor);
 
         $final_value = ($value - $median) / $divisor;
+
+        return $final_value;
+    }
+
+    protected function calculateWeightPerHeight($weight, $base_data, $height, $toddler)
+    {
+        $median = $base_data->where('toddler', $toddler)
+            ->where('line', 4)
+            ->where('height', '>=', $height)
+            ->first()
+            ->weight;
+
+        if ($weight >= $median) {
+            $line = 5;
+        } else {
+            $line = 3;
+        }
+
+        // 1-2 = abs(-1) = 1
+        $divisor = $median - $base_data->where('toddler', $toddler)
+                ->where('line', $line)
+                ->where('height', '>=', $height)
+                ->first()->weight;
+
+        $divisor = abs($divisor);
+
+        $final_value = abs($weight - $median) / $divisor;
 
         return $final_value;
     }

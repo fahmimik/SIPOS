@@ -6,6 +6,7 @@ use App\Activity;
 use App\BaseHeightPerAge;
 use App\BaseImtPerAge;
 use App\BaseWeightPerAge;
+use App\BaseWeightPerHeight;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\ActivityHelper;
 use Illuminate\Http\Request;
@@ -126,6 +127,12 @@ class ChildrenController extends Controller
             Cache::forever('base_imt_' . $gender, $base_imt);
         }
 
+        $base_wph = Cache::get('base_wph_' . $gender);
+        if(is_null($base_wph)){
+            $base_wph = BaseWeightPerHeight::where('gender', $gender)->whereIn('line', [3, 4, 5])->get();
+            Cache::forever('base_wph_' . $gender, $base_wph);
+        }
+
         $chart_data = Cache::get('chart_data_' . $gender);
         if(is_null($chart_data)){
             $chart_data = [];
@@ -158,6 +165,11 @@ class ChildrenController extends Controller
 
             $value_imt = $this->calculateBaseValueByAge($activity->imt, $base_imt, $activity->age);
             $activity->status_imt = $this->getImtPerAgeStatus($value_imt);
+
+            $toddler = $activity->age > 24 ? 1 : 0;
+            $value_bb_per_tb = $this->calculateWeightPerHeight($activity->weight, $base_wph, $activity->height, $toddler);
+            $activity->status_bb_per_tb = $this->getImtPerAgeStatus($value_bb_per_tb);
+//            return $activity;
 
             $chart_data[$activity->age][8] = $activity->weight;
         }

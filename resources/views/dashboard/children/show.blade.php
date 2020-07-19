@@ -179,7 +179,7 @@
                                 <td>{{ $activity->notes }}</td>
                                 <td class="{{ $activity->status_bb_per_u['type'] }}">{{ $activity->status_bb_per_u['title'] }}</td>
                                 <td class="{{ $activity->status_tb_per_u['type'] }}">{{ $activity->status_tb_per_u['title'] }}</td>
-                                <td>{{ $activity->bb_per_tb }}</td>
+                                <td class="{{ $activity->status_bb_per_tb['type'] }}">{{ $activity->status_bb_per_tb['title'] }}</td>
                                 <td class="{{ $activity->status_imt['type'] }}">{{ $activity->status_imt['title'] }}</td>
                             </tr>
                         @endforeach
