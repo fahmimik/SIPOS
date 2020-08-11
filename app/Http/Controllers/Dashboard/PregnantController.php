@@ -49,14 +49,15 @@ class PregnantController extends Controller
           'berat' => 'required|numeric',
           'umur_kehamilan' => 'required|numeric',
           'pil_darah' => 'required|numeric',
-          'imunisasi'
+          'imunisasi' => 'nullable',
+
       ]);
       try {
         DB::beginTransaction();
 
         $pregnants = Pregnant::create([
           'parent_id' => $request->nama_ibu,
-          'visit_at' => Carbon::createFromFormat("d/m/Y", $request->tanggal_kunjungan),
+          'created_at' => Carbon::createFromFormat("d/m/Y", $request->tanggal_kunjungan),
           'number_of_pregnant' => $request->kehamilan_ke,
           'lila' => $request->lila,
           'weight' => $request->berat,
@@ -69,7 +70,7 @@ class PregnantController extends Controller
 
       } catch (\Exception $exception) {
         DB::rollBack();
-        // dd($exception);
+        dd($exception);
       }
       toastr()->success("Data berhasil ditambahkan");
 
@@ -118,14 +119,14 @@ class PregnantController extends Controller
           'berat' => 'required|numeric',
           'umur_kehamilan' => 'required|numeric',
           'pil_darah' => 'required|numeric',
-          'imunisasi'
+          'imunisasi' => 'nullable'
       ]);
       try {
         DB::beginTransaction();
 
-        $pregnants->update([
+        $pregnant->update([
           'parent_id' => $request->nama_ibu,
-          'visit_at' => Carbon::createFromFormat("d/m/Y", $request->tanggal_kunjungan),
+          'created_at' => Carbon::createFromFormat("d/m/Y", $request->tanggal_kunjungan),
           'number_of_pregnant' => $request->kehamilan_ke,
           'lila' => $request->lila,
           'weight' => $request->berat,
@@ -141,7 +142,7 @@ class PregnantController extends Controller
         // dd($exception);
       }
       toastr()->success("Data berhasil diupdate");
-      return redirect()->route('dashboard.children.index');
+      return redirect()->route('dashboard.pregnant.index');
 
     }
 

@@ -1,208 +1,43 @@
 @extends('layouts.base')
 
-@section('title', 'Edit Pasangan')
+@section('title', 'Tambah Data KMS')
 
 @section('css')
-    <link href="{{ asset('vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet"
+          href="{{ asset('vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendors/iCheck/skins/flat/green.css') }}">
 @endsection
 
 @section('content')
     <div class="row">
         <form id="demo-form" data-parsley-validate class="form-horizontal form-label-left" method="post"
-              action="{{ route('dashboard.family.update', $family) }}">
+              action="{{ route('dashboard.activity.update', $activity) }}">
               @csrf
               @method('PATCH')
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Edit Data Suami</h2>
-                        <ul class="nav navbar-right panel_toolbox">
-
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <br/>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nama Suami <span
-                                    class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="first-name" required="required" value="{{ $family->father->name }}"
-                                       class="form-control col-md-7 col-xs-12" name="nama_suami">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">NIK Suami <span
-                                    class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" required="required" value="{{ $family->father->nik }}"
-                                       class="form-control col-md-7 col-xs-12" name="nik_suami"
-                                >
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Tempat Lahir Suami
-                                <span class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" required="required" value="{{ $family->father->birth_place }}"
-                                       class="form-control col-md-7 col-xs-12" name="tempat_lahir_suami"
-                                >
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Tanggal Lahir Suami
-                                <span class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <fieldset>
-                                    <div class="control-group">
-                                        <div class="controls">
-                                            <div class="col-md-11 xdisplay_inputx form-group has-feedback">
-                                                <input type="text" class="form-control has-feedback-left"
-                                                       id="tanggal-lahir-suami" placeholder=""
-                                                       aria-describedby="inputSuccess2Status2"
-                                                       name="tanggal_lahir_suami" value="{{ $family->father->birth_date->format('d/m/Y') }}"
-                                                >
-                                                <span class="fa fa-calendar-o form-control-feedback left"
-                                                      aria-hidden="true"></span>
-                                                <span id="inputSuccess2Status2" class="sr-only">(success)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Agama</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="agama_suami" required >
-                                    @foreach($agamas as $agama)
-                                        <option value="{{ $agama->id }}">{{ $agama->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Pekerjaan Suami
-                                <span class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" required="required" value="{{ $family->father->job }}"
-                                       class="form-control col-md-7 col-xs-12" name="pekerjaan_suami">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Data Istri</h2>
-                        <ul class="nav navbar-right panel_toolbox">
-
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-                        <br/>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nama Istri <span
-                                    class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="first-name" required="required" value="{{ $family->mother->name }}"
-                                       class="form-control col-md-7 col-xs-12" name="nama_istri">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">NIK Istri <span
-                                    class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" required="required" value="{{ $family->mother->nik }}"
-                                       class="form-control col-md-7 col-xs-12" name="nik_istri">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Tempat Lahir Istri
-                                <span class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" required="required" value="{{ $family->mother->birth_place }}"
-                                       class="form-control col-md-7 col-xs-12" name="tempat_lahir_istri">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Tanggal Lahir Istri
-                                <span class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <fieldset>
-                                    <div class="control-group">
-                                        <div class="controls">
-                                            <div class="col-md-11 xdisplay_inputx form-group has-feedback">
-                                                <input type="text" class="form-control has-feedback-left"
-                                                       id="tanggal-lahir-istri" placeholder=""
-                                                       aria-describedby="inputSuccess2Status2"
-                                                       name="tanggal_lahir_istri" value="{{ $family->mother->birth_date->format('d/m/Y') }}" >
-                                                <span class="fa fa-calendar-o form-control-feedback left"
-                                                      aria-hidden="true"></span>
-                                                <span id="inputSuccess2Status3" class="sr-only">(success)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Agama</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select class="form-control" name="agama_istri" required>
-                                    @foreach($agamas as $agama)
-                                        <option value="{{ $agama->id }}">{{ $agama->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Pekerjaan Istri
-                                <span class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" required="required"
-                                       class="form-control col-md-7 col-xs-12" name="pekerjaan_istri" value="{{ $family->mother->job }}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Tambah Data KMS</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
                     <div class="x_content">
                         <br/>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nomor KK <span
-                                    class="required"></span></label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Nama Anak</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="first-name" required="required" value="{{ $family->no_kk }}"
-                                       class="form-control col-md-7 col-xs-12" name="no_kk">
+                                <select class="form-control" name="child" required>
+                                    @foreach($childs as $child)
+                                        <option value="{{ $child->id }}" {{ $activity->child_id == $child->id ? 'selected' : '' }}>{{ $child->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Alamat
-                                Pasangan<span class="required"></span></label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="last-name" required="required" value="{{ $family->address }}"
-                                       class="form-control col-md-7 col-xs-12" name="alamat_pasangan">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Tanggal Menikah
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Tanggal KMS
                                 <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <fieldset>
@@ -210,8 +45,8 @@
                                         <div class="controls">
                                             <div class="col-md-11 xdisplay_inputx form-group has-feedback">
                                                 <input type="text" class="form-control has-feedback-left"
-                                                       id="tanggal-menikah" placeholder=""
-                                                       aria-describedby="inputSuccess2Status2" name="tanggal_menikah" value="{{ $family->married_at->format('d/m/Y') }}">
+                                                       id="tanggal-kegiatan" placeholder="" value="{{ $activity->created_at->format('d/m/Y') }}"
+                                                       aria-describedby="inputSuccess2Status2" name="activity_date">
                                                 <span class="fa fa-calendar-o form-control-feedback left"
                                                       aria-hidden="true"></span>
                                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -222,15 +57,97 @@
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Umur Anak (Bulan)
+                                <span class="required"></span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" required="required" value="{{ $activity->age }}"
+                                       class="form-control col-md-7 col-xs-12" name="age" min="0" max="60" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Berat (kg)
+                                <span class="required"></span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" required="required" value="{{ $activity->weight }}"  autocomplete="off"
+                                       class="form-control col-md-7 col-xs-12" name="weight" step="0.1" min="0">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Panjang (cm)
+                                <span class="required"></span></label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" required="required" value="{{ $activity->height }}"  autocomplete="off"
+                                       class="form-control col-md-7 col-xs-12" name="height" step="0.1" min="0">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 ">Keterangan</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea name="note" class="resizable_textarea form-control" placeholder="Beri catatan tentang pemeriksaan" style="margin-top: 0px; margin-bottom: 0px; height: 187px;">{{ $activity->notes }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12 control-label">Asi</label>
+                            {{-- show Imunizations data here --}}
+                            <div class="col-md-9 col-sm-9 ">
+                                <div class="checkbox">
+                                    @foreach($breast_milks as $asi)
+                                        <label>
+                                            <input class="flat" type="checkbox" name="breast_milks[]" value="{{ $asi->id }}" {{ $activity->breastMilks->contains($asi->id) ? 'checked' : '' }}> {{ $asi->name }}
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12 control-label">Imunisasi</label>
+                            {{-- show Imunizations data here --}}
+                            <div class="col-md-9 col-sm-9 ">
+                                @foreach($immunizations as $immunization)
+                                    <div class="checkbox">
+                                        <label>
+                                            <input class="flat" type="checkbox" name="immunizations[]"
+                                            value="{{ $immunization->id }}" {{ $activity->immunizations->contains($immunization->id) ? 'checked' : ''  }}> {{ $immunization->name }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="vitamin-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12 control-label">Vitamin A
+                            </label>
+
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" class="flat" name="vitamin_a" value="0" checked>
+                                        Tidak Diberi
+                                    </label>
+                                    <label>
+                                        <input type="radio" class="flat" name="vitamin_a" value="1">
+                                        Diberi
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                 <button class="btn btn-primary" type="button"
-                                        onclick="window.location = '{{ route('dashboard.family.index') }}'">Cancel
+                                        onclick="window.location = '{{ route('dashboard.children.index') }}'">Cancel
                                 </button>
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -241,19 +158,26 @@
 @section('js')
     <script src="{{ asset('vendors/DateJS/build/date.js') }}"></script>
     <script src="{{ asset('vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('vendors/iCheck/icheck.min.js') }}"></script>
     <script>
-        $(document).ready(function(){
-            $('#tanggal-lahir-suami').datetimepicker({
+        $(document).ready(function () {
+            // Hide vitamin form
+            $('#vitamin-group').hide();
+
+            $('#tanggal-kegiatan').datetimepicker({
                 format: 'DD/MM/YYYY'
             });
 
-            $('#tanggal-lahir-istri').datetimepicker({
-                format: 'DD/MM/YYYY'
-            });
-
-            $('#tanggal-menikah').datetimepicker({
-                format: 'DD/MM/YYYY'
-            });
+            // Trigger jika dropdown bulan berganti februari / agustus makan vitamin form show
+            $('#select-month').change(function(){
+                if($(this).val() == 2 || $(this).val() == 8) { // jika nilai bulan 2 atau 8 (februari atau agustus)
+                    // show vitamin group
+                    $('#vitamin-group').show();
+                } else {
+                    // hide vitamin group
+                    $('#vitamin-group').hide();
+                }
+            }).change();
         });
     </script>
 @endsection

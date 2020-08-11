@@ -115,21 +115,21 @@
                             <th>Nama Anak</th>
                             <th>Tempat Lahir</th>
                             <th>Tanggal Lahir</th>
-                            <th>Berat Badan Lahir</th>
+
                             <th>Agama</th>
                         </tr>
                         </thead>
                         <tbody>
-{{--                        @foreach($pasangan->anaks as $index => $anak)--}}
-{{--                            <tr class="clickable-row" data-href="{{ route('anak.show', ["anak" => $anak->id]) }}">--}}
-{{--                                <td>{{ $index + 1 }}</td>--}}
-{{--                                <td>{{ $anak->nama_anak }}</td>--}}
-{{--                                <td>{{ $anak->tempat_lahir }}</td>--}}
-{{--                                <td>{{ $anak->tanggal_lahir }}</td>--}}
-{{--                                <td>{{ $anak->berat_bayi_lahir }}</td>--}}
-{{--                                <td>{{ $anak->agama->nama_agama }}</td>--}}
-{{--                            </tr>--}}
-{{--                        @endforeach--}}
+                        @foreach($family->childrens as $index => $children)
+                            <tr class="clickable-row" data-href="{{ route('dashboard.children.show', ["children" => $children->id]) }}">
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $children->name }}</td>
+                                <td>{{ $children->birth_place }}</td>
+                                <td>{{ $children->birth_date->format('d/m/Y') }}</td>
+
+                                <td>{{ $children->religion->name }}</td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

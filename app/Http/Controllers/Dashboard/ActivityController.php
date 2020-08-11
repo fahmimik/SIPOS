@@ -92,7 +92,7 @@ class ActivityController extends Controller
                     'weight' => $request->weight,
                     'height' => $request->height,
                     'status' => 1,
-                    'age' => 1,
+                    'age' => $request->age,
                     'vitamin_a' => $request->vitamin_a,
                     'created_at' => Carbon::createFromFormat('d/m/Y', $request->activity_date),
                     'notes' => $request->note
@@ -145,8 +145,74 @@ class ActivityController extends Controller
         } catch (\Exception $exception) {
             // Rollback transaction
             DB::rollBack();
-            dd($exception); // lihat errornya
+            // dd($exception); // lihat errornya
         }
-        return redirect()->back();
+        return redirect()->route('dashboard.activity.index');
     }
-}
+
+    public function edit(Activity $activity)
+    {
+      // Get list of ages from global list of age attribute above
+      $list_of_ages = $this->list_of_ages;
+      // Get list of months from global list of age attribute above
+      $list_of_months = $this->list_of_months;
+      // Get list of years from global list of age attribute above
+      $list_of_years = $this->list_of_years;
+
+      // Get all child data from database
+      $childs = Children::get();
+
+      // Get all imunizations data from database
+      $immunizations = Immunization::get();
+
+      // Get all breast milk data from database
+      $breast_milks = BreastMilk::get();
+      // Return view with data
+      return view('dashboard.activity.edit', compact('activity', 'list_of_months', 'list_of_years', 'list_of_ages', 'childs', 'immunizations', 'breast_milks'));
+    }
+
+    public function update(Request $request, Activity $activity)
+    {
+      $this->validate($request, [
+          'child' => 'required|exists:childrens,id',
+          'activity_date' => 'required',
+          'age' => 'required',
+          'weight' => 'required',
+          'height' => 'required',
+          'immunizations' => 'array',
+          'breast_milks' => 'array',
+          'vitamin_a' => 'required'
+      ]);
+      // return $request->breast_milks;
+      try {
+        DB::beginTransaction();
+        $child = Children::with('activities')->find($request->child);
+        $last_activity = $child->activities->last();
+        $activity->update([
+          'weight' => $request->weight,
+          'height' => $request->height,
+          'status' => 1,
+          'age' => $request->age,
+          'vitamin_a' => $request->vitamin_a,
+          'created_at' => Carbon::createFromFormat('d/m/Y', $request->activity_date),
+          'notes' => $request->note
+        ]);
+        // menghapus data imunisasi sebelumnya
+        $activity->immunizations()->detach();
+        // tambah data imunisasi sesuai pemeriksaan
+        $activity->immunizations()->attach($request->immunizations);
+        // menghapus data asi sebelumnya
+        $activity->breastMilks()->detach();
+        // tambah data asi sesuai pemeriksaan
+        $activity->breastMilks()->attach($request->breast_milks);
+        DB::commit();
+
+      } catch (\Exception $exception) {
+        DB::rollBack();
+        // dd($exception);
+      }
+      toastr()->success("Data berhasil diupdate");
+      return redirect()->route('dashboard.activity.index');
+
+    }
+  }

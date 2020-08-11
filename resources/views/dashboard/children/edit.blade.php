@@ -28,7 +28,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="pasangan" required>
                                     @foreach($families as $family)
-                                        <option value="{{ $family->id }}">{{ $family->mother->name }}
+                                        <option value="{{ $family->id }}" {{ $children->family_id == $family->id ? 'selected' : '' }}>{{ $family->mother->name }}
                                             - {{ $family->father->name }}</option>
                                     @endforeach
                                 </select>
@@ -80,7 +80,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="agama" required>
                                     @foreach($agamas as $agama)
-                                        <option value="{{ $agama->id }}">{{ $agama->name }}</option>
+                                        <option value="{{ $agama->id }}" {{ $children->religion_id == $agama->id ? 'selected' : '' }}>{{ $agama->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -93,34 +93,34 @@
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" class="flat" checked name="jenis_kelamin" value="1">
+                                        <input type="radio" class="flat" checked name="jenis_kelamin" value="2" {{ $children->gender == '2' ? 'checked' :  ''}}>
                                         Laki-Laki
                                     </label>
                                     <label>
-                                        <input type="radio" class="flat" name="jenis_kelamin" value="2">
+                                        <input type="radio" class="flat" name="jenis_kelamin" value="1" {{ $children->gender == '1' ? 'checked' :  ''}}>
                                         Perempuan
                                     </label>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Berat Lahir (kg)
                                 <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="last-name" required="required"
+                                <input type="number" id="last-name" value="{{ $children->activities->first()->weight }}" required="required"
                                        class="form-control col-md-7 col-xs-12" name="berat_lahir" step="0.1" min="0">
                             </div>
-                        </div> -->
+                        </div>
 
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Panjang Lahir (cm)
                                 <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="last-name" required="required"
+                                <input type="number" id="last-name" value="{{ $children->activities->first()->height }}" required="required"
                                        class="form-control col-md-7 col-xs-12" name="panjang_lahir" step="0.1" min="0">
                             </div>
-                        </div> -->
+                        </div>
 
 
                         <div class="ln_solid"></div>

@@ -51,7 +51,7 @@
                               <tr>
                                   <td>{{ $index + 1 }}</td>
                                   <td>{{ $pregnant->parent->name }}</td>
-                                  <td>{{ $pregnant->visit_at->format('d/m/Y') }}</td>
+                                  <td>{{ $pregnant->created_at->format('d/m/Y') }}</td>
                                   <td>{{ $pregnant->number_of_pregnant }}</td>
                                   <td>{{ $pregnant->lila }}</td>
                                   <td>{{ $pregnant->weight }}</td>
@@ -59,9 +59,9 @@
                                   <td>{{ $pregnant->blood_pill }}</td>
                                   <td>{{ $pregnant->tetanus_immunization }}</td>
                                   <td>
-                                      <a href="{{ route('dashboard.pregnant.show', $pregnant) }}" class="btn btn-primary"><i class="fa fa-info"></i></a>
+                                      <!-- <a href="{{ route('dashboard.pregnant.show', $pregnant) }}" class="btn btn-primary"><i class="fa fa-info"></i></a> -->
                                       <a class="btn btn-success" href="{{ route('dashboard.pregnant.edit', $pregnant) }}"><i class="fa fa-edit"></i></a>
-                                      <a class="btn btn-danger" onclick="destroy('{{ route("dashboard.pregnant.destroy", $pregnant) }}')"><i class="fa fa-trash"></i></a>
+                                      <!-- <a class="btn btn-danger" onclick="destroy('{{ route("dashboard.pregnant.destroy", $pregnant) }}')"><i class="fa fa-trash"></i></a> -->
                                   </td>
                               </tr>
                           @endforeach

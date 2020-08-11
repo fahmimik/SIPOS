@@ -43,24 +43,19 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->role->name }}</td>
                                 <td>
-                                    <a class="" href="{{ route('dashboard.users.edit', $user) }}"><i class="fa fa-edit"></i></a>
-                                    <a class="" onclick="destroy('{{ route("dashboard.users.destroy", $user) }}')"><i class="fa fa-trash"></i></a>
+                                    <a class="btn btn-success" href="{{ route('dashboard.users.edit', $user) }}"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-                    <form action="" id="delete-form" method="post">
-                        @method('DELETE')
-                        @csrf
-                    </form>
                 </div>
             </div>
         </div>
     </div>
 @endsection
 
-@section('js')
+<!-- @section('js')
     <script>
         function destroy(url) {
             var del = confirm("Apa anda yakin akan menghapus user ini?");
@@ -69,4 +64,4 @@
             }
         }
     </script>
-@endsection
+@endsection -->

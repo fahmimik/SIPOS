@@ -57,7 +57,6 @@
                                   <td>
                                       <a href="{{ route('dashboard.children.show', $children) }}" class="btn btn-primary"><i class="fa fa-info"></i></a>
                                       <a class="btn btn-success" href="{{ route('dashboard.children.edit', $children) }}"><i class="fa fa-edit"></i></a>
-                                      <a class="btn btn-danger" onclick="destroy('{{ route("dashboard.children.destroy", $children) }}')"><i class="fa fa-trash"></i></a>
                                   </td>
                               </tr>
                           @endforeach

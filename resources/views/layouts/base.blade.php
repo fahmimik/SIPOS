@@ -50,9 +50,10 @@
 
                 <div class="clearfix"></div>
                 <br/>
-
                 <!-- sidebar menu -->
+                
                 @include('includes.sidebar')
+
                 <!-- /sidebar menu -->
             </div>
         </div>
@@ -139,6 +140,10 @@
 <!-- Custom Theme Scripts -->
 <script src="{{ asset('build/js/custom.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+
 @yield('js')
 </body>
 </html>

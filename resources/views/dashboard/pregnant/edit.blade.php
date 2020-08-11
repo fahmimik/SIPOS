@@ -9,13 +9,13 @@
 @section('content')
     <div class="row">
         <form id="demo-form" data-parsley-validate class="form-horizontal form-label-left" method="post"
-              action="{{ route('dashboard.pregnant.store', $pregnant) }}">
-            @csrf
-            @method('PATCH')
+              action="{{ route('dashboard.pregnant.update', $pregnant) }}">
+              @csrf
+              @method('PATCH')
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>EDit Data Ibu Hamil</h2>
+                        <h2>Edit Data Ibu Hamil</h2>
                         <ul class="nav navbar-right panel_toolbox">
 
                         </ul>
@@ -28,7 +28,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="nama_ibu" required>
                                     @foreach($parents as $parent)
-                                        <option value="{{ $parent->id }}">{{ $parent->name }}</option>
+                                        <option value="{{ $parent->id }}" {{ $pregnant->parent_id == $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -44,7 +44,7 @@
                                             <div class="col-md-11 xdisplay_inputx form-group has-feedback">
                                                 <input type="text" class="form-control has-feedback-left"
                                                        id="tanggal-kunjungan" placeholder=""
-                                                       aria-describedby="inputSuccess2Status2" name="tanggal_kunjungan" value="{{ $pregnant->visit_at->format('d/m/Y') }}">
+                                                       aria-describedby="inputSuccess2Status2" name="tanggal_kunjungan" value="{{ $pregnant->created_at->format('d/m/Y') }}">
                                                 <span class="fa fa-calendar-o form-control-feedback left"
                                                       aria-hidden="true"></span>
                                                 <span id="inputSuccess2Status4" class="sr-only">(success)</span>
@@ -104,12 +104,12 @@
                             <label for="imunisasi_tt" class="control-label col-md-3 col-sm-3 col-xs-12">Imunisasi Tetanus</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select id="imunisasi_tt" class="form-control" name="imunisasi">
-                                        <option value="">-</option>
-                                        <option value="T1">T1</option>
-                                        <option value="T2">T2</option>
-                                        <option value="T3">T3</option>
-                                        <option value="T4">T4</option>
-                                        <option value="T5">T5</option>
+                                        <option value="" {{ $pregnant->tetanus_immunization == '' ? 'selected' : '' }}>-</option>
+                                        <option value="T1" {{ $pregnant->tetanus_immunization == 'T1' ? 'selected' : '' }}>T1</option>
+                                        <option value="T2" {{ $pregnant->tetanus_immunization == 'T2' ? 'selected' : '' }}>T2</option>
+                                        <option value="T3" {{ $pregnant->tetanus_immunization == 'T3' ? 'selected' : '' }}>T3</option>
+                                        <option value="T4" {{ $pregnant->tetanus_immunization == 'T4' ? 'selected' : '' }}>T4</option>
+                                        <option value="T5" {{ $pregnant->tetanus_immunization == 'T5' ? 'selected' : '' }}>T5</option>
                                 </select>
                             </div>
                         </div>

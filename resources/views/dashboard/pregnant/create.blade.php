@@ -94,7 +94,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Pil Penambah Darah (isi 0 Bila Tidak Ada)
                                 <span class="required"></span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="last-name"
+                                <input type="number" id="last-name" required
                                        class="form-control col-md-7 col-xs-12" name="pil_darah">
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                             <label for="imunisasi_tt" class="control-label col-md-3 col-sm-3 col-xs-12">Imunisasi Tetanus</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select id="imunisasi_tt" class="form-control" name="imunisasi">
-                                        <option value="">-</option>
+                                        <option value=""> </option>
                                         <option value="T1">T1</option>
                                         <option value="T2">T2</option>
                                         <option value="T3">T3</option>

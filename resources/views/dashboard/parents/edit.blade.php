@@ -79,7 +79,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="agama_suami" required >
                                     @foreach($agamas as $agama)
-                                        <option value="{{ $agama->id }}">{{ $agama->name }}</option>
+                                        <option value="{{ $agama->id }}"{{ $family->father->religion_id == $agama->id ? 'selected' : '' }}>{{ $agama->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -161,7 +161,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select class="form-control" name="agama_istri" required>
                                     @foreach($agamas as $agama)
-                                        <option value="{{ $agama->id }}">{{ $agama->name }}</option>
+                                        <option value="{{ $agama->id }}"{{ $family->mother->religion_id == $agama->id ? 'selected' : '' }}>{{ $agama->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

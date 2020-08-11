@@ -207,7 +207,9 @@ class ChildrenController extends Controller
             'nama' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required'
+            'jenis_kelamin' => 'required',
+            'berat_lahir' => 'required',
+            'panjang_lahir' => 'required',
         ]);
         try {
             DB::beginTransaction();
@@ -221,11 +223,16 @@ class ChildrenController extends Controller
                 'gender' => $request->jenis_kelamin
             ]);
 
+            $activity = Activity::where('child_id', $children->id)->where('age', 0)->first()->update([
+              'weight' => $request->berat_lahir,
+              'height' => $request->panjang_lahir
+            ]);
+
 
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();
-            // dd($exception);
+            dd($exception);
         }
         toastr()->success("Data berhasil diupdate");
         return redirect()->route('dashboard.children.index');
