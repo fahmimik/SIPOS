@@ -20,6 +20,7 @@ class ActivityController extends Controller
     // List of year
     private $list_of_years = [];
 
+    //constructor, for generate atribute above
     public function __construct()
     {
         // Generate List Of Month in controller constructor, ie : January, February, ...
@@ -85,7 +86,7 @@ class ActivityController extends Controller
             // Init transaction
             DB::beginTransaction();
             // TODO Inserting to DB with logic
-            $child = Children::with('activities')->find($request->child);
+            $child = Children::with('activities')->find($request->child); //data yg diperoleh DB dg eksekusi join relation activities yg di filter berdasarkan child form
             $last_activity = $child->activities->last(); // ambil kegiatan posyandu yang terakhir
             if (is_null($last_activity)) { // Jika tidak ada kegiatan posyandu sama sekali maka status baru
                 $activity = $child->activities()->create([ // Membuat kegiatan posyandu dengan status bari
